@@ -17,44 +17,30 @@ public abstract class AbstractDao<T extends AbstractEntity> {
     }
 
     public void persist(T entity) {
-        em.getTransaction().begin();
         em.persist(entity);
-        em.getTransaction().commit();
-    //  em.getTransaction().rollback();
-        em.close();
-
+//      
     }
 
     public void remove(T entity) {
-        em.getTransaction().begin();
-        try {
-            entity = em.find(getEntityClass(), entity.getId());
-            em.remove(entity);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
+
+        entity = em.find(getEntityClass(), entity.getId());
+        em.remove(entity);
+
     }
 
     public void atualizar(T entity) {
-        em.getTransaction().begin();
-        try {
-            em.merge(entity);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
+
+        em.merge(entity);
+
+    }
+
+    public T getEntity(T entity) {
+        entity = em.find(getEntityClass(), entity.getId());
+        return entity;
     }
 
     public List<T> listar() {
         Query query = em.createQuery("select m from " + getEntityClass().getSimpleName() + " m");
-
         return query.getResultList();
     }
 

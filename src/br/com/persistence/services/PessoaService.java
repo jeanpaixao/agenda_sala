@@ -1,20 +1,42 @@
 package br.com.persistence.services;
 
 import br.com.entities.Pessoa;
-import br.com.persistence.HibernateUtil;
 import br.com.persistence.PessoaDao;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
-public class PessoaService {
+public class PessoaService extends AbstractService{
 
-    EntityManagerFactory emf = HibernateUtil.getEmf();
-    EntityManager em = emf.createEntityManager();
+  public void salvarPessoa(Pessoa p) {
+        em.getTransaction().begin();
+        PessoaDao pessoaDao = new PessoaDao(em);
+        pessoaDao.persist(p);
+        em.getTransaction().commit();
+        em.close();
 
-    public void salvarPessoa(Pessoa p) {
-        
-        PessoaDao pd = new PessoaDao(em);
-        pd.persist(p);
-        
+    }
+
+    public void removerPessoa(Pessoa p) {
+        em.getTransaction().begin();
+        PessoaDao pessoaDao = new PessoaDao(em);
+        pessoaDao.remove(p);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void atualizarPessoa(Pessoa p) {
+        em.getTransaction().begin();
+        PessoaDao pessoaDao = new PessoaDao(em);
+        pessoaDao.atualizar(p);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public Pessoa getPessoa(Pessoa p) {
+        em.getTransaction().begin();
+        PessoaDao pessoaDao = new PessoaDao(em);
+     
+        em.getTransaction().commit();
+        em.close();
+
+        return null;
     }
 }

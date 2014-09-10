@@ -3,8 +3,6 @@ package br.com.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,8 +23,7 @@ public class Sala extends AbstractEntity implements Serializable {
     private boolean haveWifi;
     private Integer quantInternetCabo;
     private Integer quantArCondicionado;
-    @Enumerated(EnumType.STRING)
-    private Enum tipoSala;
+    private String tipoSala;
 
     @OneToMany
     private List<Evento> eventos;
@@ -50,11 +47,11 @@ public class Sala extends AbstractEntity implements Serializable {
         this.id = id;
     }
 
-    public Enum getTipoSala() {
+    public String getTipoSala() {
         return tipoSala;
     }
 
-    public void setTipoSala(Enum tipoSala) {
+    public void setTipoSala(String tipoSala) {
         this.tipoSala = tipoSala;
     }
 
